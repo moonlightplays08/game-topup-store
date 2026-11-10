@@ -8,6 +8,8 @@
   <title>VERLY GAMEDEV STORE — Top Up Coin & Diamond</title>
   <link rel="stylesheet" href="/assets/styles.css">
   <script src="/assets/app.js" defer></script>
+  <link rel="stylesheet" href="/assets/promo-popups.css">
+  <script src="/assets/promo-popups.js" defer></script>
 </head>
 <body>
   <div class="announcement" aria-label="Pengumuman toko">
@@ -80,5 +82,40 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><div><strong>VERLY <span>GAMEDEV</span> STORE</strong><p>Coin • Diamond • VIP • Premium</p></div><div><a href="/privacy.html">Privasi</a><a href="#lacak">Cek Transaksi</a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/62882002402778">WhatsApp</a></div><small>© 2026 VERLY GAMEDEV STORE</small></div></footer>
   <div class="mobile-checkout"><span id="mobile-subtotal">Pilih paket untuk mulai</span><a href="#order" class="btn primary">Lanjut Order →</a></div>
+  <!-- Dua popup promo berurutan: halaman 1 -> halaman 2 -> tutup -->
+  <div id="verly-promo" class="verly-promo" hidden aria-hidden="true">
+    <div class="verly-promo-dialog" role="dialog" aria-modal="true" aria-labelledby="verly-promo-title">
+      <h2 id="verly-promo-title" class="verly-sr-only">Promo VIP VERLY GAMEDEV STORE</h2>
+
+      <div class="verly-promo-slide" id="verly-promo-slide-one">
+        <img src="/assets/popups/vip-footage.webp" width="1199" height="1312" alt="Foto item VIP Ontel Simulator Indonesia: suasana Balai Rimba saat hujan dan komunitas di pantai" decoding="async" fetchpriority="high">
+        <button class="verly-promo-x first" type="button" id="verly-promo-next" aria-label="Lanjut melihat promo VIP Member">
+          <span aria-hidden="true">×</span>
+        </button>
+        <!-- Tanda panah sudah menjadi bagian gambar; area ini membuatnya betul-betul dapat diklik -->
+        <button class="verly-promo-next-hotspot" type="button" id="verly-promo-next-arrow" aria-label="Lanjut ke foto VIP Member"></button>
+        <p class="verly-sr-only">Halaman 1 dari 2. Tekan tombol X atau tanda panah untuk melanjutkan.</p>
+      </div>
+
+      <div class="verly-promo-slide" id="verly-promo-slide-two" hidden>
+        <img src="/assets/popups/vip-member.webp" width="1122" height="1402" alt="VIP Member 30 Hari Ontel Simulator Indonesia. Keuntungan, item limited November, harga Rp20.000 dan bonus 1 juta coin ditambah 50 DM" decoding="async">
+        <!-- Menyalin HANYA area judul lalu menggerakkannya perlahan. Teks bawaan gambar tetap terlihat. -->
+        <div class="verly-vip-title-motion" aria-hidden="true"></div>
+        <div class="verly-vip-title-shimmer" aria-hidden="true"></div>
+        <div class="verly-vip-sparkles" aria-hidden="true">
+          <i class="star s1">✦</i><i class="star s2">✧</i><i class="star s3">✦</i><i class="star s4">✧</i>
+          <i class="star s5">✧</i><i class="star s6">✦</i><i class="star s7">✦</i><i class="star s8">✧</i>
+        </div>
+        <button class="verly-promo-x second" type="button" id="verly-promo-close" aria-label="Tutup promo dan lihat website"><span aria-hidden="true">×</span></button>
+        <!-- Area tombol beli sudah tercetak dalam desain poster -->
+        <button class="verly-vip-buy-hotspot" type="button" id="verly-vip-buy" aria-label="Pilih paket VIP Member 30 Hari seharga Rp20.000"></button>
+        <p class="verly-sr-only">Halaman 2 dari 2. Tekan Beli VIP Sekarang untuk memilih paket, atau X untuk menutup popup.</p>
+      </div>
+      <div class="verly-promo-accessible-nav">
+        <span id="verly-promo-count" aria-live="polite">1 / 2</span>
+        <button id="verly-promo-skip" type="button">Tutup promo</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

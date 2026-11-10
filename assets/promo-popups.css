@@ -1,0 +1,34 @@
+/* Promo 2 halaman (mobile-first). Isolasi kelas agar checkout, D1, dan form tidak berubah. */
+.verly-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.verly-promo[hidden],.verly-promo-slide[hidden]{display:none!important}
+.verly-promo{position:fixed;inset:0;z-index:99999;background:rgba(2,6,19,.89);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:16px 9px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+body.verly-promo-open{overflow:hidden}
+.verly-promo-dialog{position:relative;width:min(96vw,460px);max-height:calc(100dvh - 20px);display:flex;flex-direction:column;align-items:center;gap:5px;outline:none}
+.verly-promo-slide{position:relative;flex:0 1 auto;width:min(100%, max(1px, (100dvh - 74px) * .8));min-width:0;overflow:visible;border-radius:19px;filter:drop-shadow(0 0 12px #04affb70)}
+#verly-promo-slide-one{width:min(100%, max(1px, (100dvh - 74px) * .9139))}
+#verly-promo-slide-two{width:min(100%, max(1px, (100dvh - 74px) * .8003))}
+.verly-promo-slide>img{display:block;width:100%;height:auto;max-height:calc(100dvh - 74px);object-fit:contain;border-radius:18px;user-select:none;-webkit-user-drag:none}
+.verly-promo-x{position:absolute;z-index:4;width:8.5%;aspect-ratio:1;border-radius:50%;cursor:pointer;border:2px solid #ffed69;background:linear-gradient(145deg,rgba(2,19,53,.94),rgba(2,5,19,.96));box-shadow:0 0 10px #ffc617b0,0 0 8px #13c9ff inset;display:grid;place-items:center;color:white;touch-action:manipulation}
+.verly-promo-x span{font-family:Arial,sans-serif;font-size:clamp(16px,5.6vw,30px);font-weight:700;line-height:1}
+.verly-promo-x.first{right:2.5%;top:1.6%}
+.verly-promo-x.second{right:2.5%;top:1.5%}
+.verly-promo-x:hover,.verly-promo-x:focus-visible{background:#1656a0;outline:2px solid #fff;outline-offset:2px}
+.verly-promo-next-hotspot{position:absolute;top:39%;right:2.2%;width:10%;height:8%;border:0;background:transparent;cursor:pointer;z-index:3}
+.verly-vip-buy-hotspot{position:absolute;left:18%;top:85%;width:65%;height:8%;border:0;border-radius:25px;background:transparent;cursor:pointer;z-index:5}
+.verly-vip-buy-hotspot:focus-visible,.verly-promo-next-hotspot:focus-visible{outline:3px solid white;outline-offset:1px}
+/* Judul asli sudah tertanam di poster. Overlay salinan tepat di area judul membuatnya melayang halus, tanpa teks dobel yang ditambahkan. */
+.verly-vip-title-motion{position:absolute;inset:0;z-index:2;pointer-events:none;background:url('/assets/popups/vip-member.webp') center/100% 100% no-repeat;clip-path:polygon(14% 25%,87% 25%,87% 37%,14% 37%);animation:verly-title-hover 3s ease-in-out infinite;will-change:transform}
+.verly-vip-title-shimmer{position:absolute;z-index:3;pointer-events:none;left:15%;top:24.6%;width:73%;height:13%;background:linear-gradient(107deg,transparent 0%,transparent 36%,rgba(255,255,255,.1) 44%,rgba(255,255,255,.43) 49%,rgba(255,242,121,.30) 52%,transparent 60%,transparent 100%);background-size:270% 100%;mix-blend-mode:screen;animation:verly-title-shine 4.7s ease-in-out infinite}
+.verly-vip-sparkles{position:absolute;inset:0;z-index:3;pointer-events:none}
+.verly-vip-sparkles .star{position:absolute;font-style:normal;color:#fffed9;font-weight:bold;font-size:clamp(13px,2.5vw,22px);text-shadow:0 0 5px #fff,0 0 11px #ffe653,0 0 18px #22b5ff;opacity:0;animation:verly-star-glint 2.8s ease-in-out infinite}
+.verly-vip-sparkles .s1{left:58%;top:50%;animation-delay:.1s}.verly-vip-sparkles .s2{left:67%;top:55%;animation-delay:1.2s}
+.verly-vip-sparkles .s3{left:83%;top:50%;animation-delay:1.7s}.verly-vip-sparkles .s4{left:91%;top:55%;animation-delay:.5s}
+.verly-vip-sparkles .s5{left:58%;top:63%;animation-delay:1.4s}.verly-vip-sparkles .s6{left:68%;top:66%;animation-delay:.4s}
+.verly-vip-sparkles .s7{left:84%;top:62%;animation-delay:.9s}.verly-vip-sparkles .s8{left:92%;top:67%;animation-delay:2.0s}
+.verly-promo-accessible-nav{width:100%;max-width:410px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 7px;color:#d4e8ff;font-size:12px}
+.verly-promo-accessible-nav button{background:none;color:#cbe8ff;border:0;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:5px 3px}
+@keyframes verly-title-hover{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2.6px) scale(1.003)}}
+@keyframes verly-title-shine{0%,19%{background-position:100% 0}59%,100%{background-position:-100% 0}}
+@keyframes verly-star-glint{0%,36%,100%{opacity:0;transform:scale(.35) rotate(-30deg)}48%{opacity:1;transform:scale(1.1) rotate(0)}59%{opacity:.65;transform:scale(.75) rotate(45deg)}}
+@media (min-width:800px){.verly-promo-dialog{width:min(85vw,510px)}.verly-promo-x span{font-size:28px}.verly-vip-sparkles .star{font-size:24px}}
+@media (prefers-reduced-motion:reduce){.verly-vip-title-motion,.verly-vip-title-shimmer,.verly-vip-sparkles .star{animation:none!important}.verly-vip-title-motion{transform:none!important}.verly-vip-title-shimmer{opacity:0}}

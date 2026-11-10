@@ -1,0 +1,29 @@
+# VERLY GAMEDEV STORE — UPDATE 2 POPUP MOBILE
+
+Paket ini hanya mengubah tampilan popup. **Database Cloudflare D1, checkout, API, harga, dan metode pembayaran tidak diubah.**
+
+## File yang harus diunggah ke ROOT repository GitHub `moonlightplays08/game-topup-store`
+
+- `index.html` (menggantikan file lama)
+- `assets/promo-popups.css` (file baru)
+- `assets/promo-popups.js` (file baru)
+- `assets/popups/vip-footage.webp` (file baru: gambar pertama, dua scene)
+- `assets/popups/vip-member.webp` (file baru: gambar kedua, VIP member)
+
+File `assets/app.js`, `assets/styles.css`, `functions/api/*`, `schema.sql`, `privacy.html` tidak perlu diubah.
+
+**Cara pasang:** Extract ZIP → masuk ke folder hasil extract → pilih `index.html` dan folder `assets` di dalamnya → upload ke repo GitHub, jangan upload folder pembungkusnya → commit ke `main`. Jika GitHub menolak overwrite `index.html`, buka file index di GitHub dan tambahkan secara manual 2 tag link/script di bagian `<head>` dan blok popup sebelum `</body>` dari file `index.html` pada ZIP.
+
+## Cara kerja
+- Pembukaan website: popup foto pertama.
+- Tombol `X` atau panah kanan pada foto pertama: pindah ke foto kedua.
+- Foto kedua: animasi melayang tipis pada area judul **VIP MEMBER 30 HARI**, sweep cahaya, dan delapan bintang kilau di empat item.
+- Tombol `X` pada foto kedua: tutup semua popup.
+- Tombol **BELI VIP SEKARANG** yang tampak di foto kedua dapat diklik: memilih produk VIP Member (ID 11) dan scroll ke form checkout.
+- Popup muncul satu kali per sesi browser; tidak muncul setelah 30 November 2026 (WIB) karena item bulan November dapat berubah.
+- Pada HP, modal menyesuaikan ukuran layar.
+
+### Catatan teknis
+Teks VIP pada poster adalah bagian dari gambar, bukan teks HTML terpisah. Karena itu gerakan dibuat dengan lapisan duplikat gambar **terbatas di area judul**, sehingga menghasilkan efek floating lembut. Jika ingin animasi karakter per huruf yang lebih kuat, kita perlu versi gambar latar tanpa tulisan.
+
+**Cara uji:** buka website dengan tab incognito baru untuk menampilkan popup lagi. Setelah klik X dua kali, popup tidak muncul lagi sampai sesi browser baru. Jangan menerima order real sebelum mengecek checkout normal setelah update.
