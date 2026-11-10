@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101d">
+  <meta name="description" content="VERLY GAMEDEV STORE — katalog Coin, Diamond, VIP Member dan Premium. Pesan mudah melalui WhatsApp.">
+  <title>VERLY GAMEDEV STORE — Top Up Coin & Diamond</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="announcement" aria-label="Pengumuman toko">
+    <div class="ticker-track" aria-hidden="true"><span>✦ VERLY GAMEDEV STORE &nbsp; • &nbsp; COIN & DIAMOND &nbsp; • &nbsp; BONUS SPESIAL NOVEMBER &nbsp; • &nbsp; PESAN VIA WHATSAPP &nbsp; ✦ &nbsp;</span><span>✦ VERLY GAMEDEV STORE &nbsp; • &nbsp; COIN & DIAMOND &nbsp; • &nbsp; BONUS SPESIAL NOVEMBER &nbsp; • &nbsp; PESAN VIA WHATSAPP &nbsp; ✦ &nbsp;</span></div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="brand" href="#beranda" aria-label="Verly GameDev Store, ke beranda">
+        <span class="brand-icon" aria-hidden="true">V<span>✦</span></span>
+        <span class="brand-words"><strong>VERLY<span>GAMEDEV</span></strong><small>STORE • GAME TOP UP</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navigasi utama"><a href="#beranda">Beranda</a><a href="#paket">Daftar Harga</a><a href="#lacak">Cek Transaksi</a></nav>
+      <div class="header-actions"><label class="search-wrap"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Cari paket favoritmu..." autocomplete="off" aria-label="Cari produk"></label><a class="chat-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/6288200240778">Chat Admin ↗</a></div>
+    </div>
+  </header>
+  <main>
+    <section class="hero container" id="beranda" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="hero-chip"><span class="live-dot"></span> TOP UP GAME • VERLY GAMEDEV STORE</div>
+        <p class="eyebrow">LEVEL UP YOUR GAME</p>
+        <h1 id="hero-title">TOP UP <span>COIN</span><br>& <em>DIAMOND</em></h1>
+        <p class="hero-lead">Pilih paket favoritmu, isi ID Mabar, lalu pesan langsung lewat WhatsApp. Semua informasi order tersusun rapi.</p>
+        <div class="hero-cta"><a href="#paket" class="btn primary">⚡ Lihat Harga</a><a href="#cara-order" class="btn outline">Cara Order <span aria-hidden="true">→</span></a></div>
+        <div class="hero-points"><span>◈ Coin & Diamond</span><span>◇ VIP & Premium</span><span>✦ Checkout WhatsApp</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="art-diamond">◆</div><div class="art-coin">V</div>
+        <div class="art-flare flare-a">✦</div><div class="art-flare flare-b">✧</div>
+        <div class="art-tag">NOVEMBER <b>BONUS DROP</b></div>
+      </div>
+    </section>
+
+    <section class="features-strip container" aria-label="Keunggulan"><span>✧ Desain khusus gamer</span><span>✧ Form order cepat</span><span>✧ Konfirmasi melalui WhatsApp</span></section>
+
+    <section class="catalog container" id="paket" aria-labelledby="catalog-heading">
+      <div class="section-heading"><div><p class="eyebrow">PILIH PAKETMU</p><h2 id="catalog-heading">KATALOG <span>TOP UP</span></h2><p>Pilih salah satu paket sebelum mengisi form pemesanan.</p></div><div class="promo-pill" id="promo-pill">🎁 BONUS NOVEMBER 2026</div></div>
+      <div class="category-tabs" id="category-tabs" role="tablist" aria-label="Kategori produk"><button type="button" role="tab" data-category="coin" aria-selected="true">🪙 Coin</button><button type="button" role="tab" data-category="diamond" aria-selected="false">💎 Diamond</button><button type="button" role="tab" data-category="membership" aria-selected="false">👑 VIP & Premium</button><button type="button" role="tab" data-category="all" aria-selected="false">Semua</button></div>
+      <div id="catalog-status" class="notice" role="status" aria-live="polite">Memuat daftar paket…</div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="order-section container" id="order" aria-labelledby="checkout-heading">
+      <div class="section-heading"><div><p class="eyebrow">GAMPANG, TANPA RIBET</p><h2 id="checkout-heading">FORM <span>PEMESANAN</span></h2><p>Isi data, cek ringkasan, dan lanjutkan ke chat admin.</p></div></div>
+      <div class="order-layout">
+        <form id="checkout-form" novalidate>
+          <section class="form-panel"><div class="step-heading"><span class="step-number">01</span><div><h3>Masukkan data akun</h3><p>Gunakan data akun game yang akan menerima top up.</p></div></div><div class="form-fields two"><label>Nama pelanggan <span>*</span><input id="customer-name" name="name" maxlength="80" autocomplete="name" required placeholder="Nama kamu"></label><label>ID Mabar <span>*</span><input id="mabar-id" name="mabar_id" maxlength="50" required placeholder="Contoh: 123456789"></label><label class="full">Nama akun yang ditautkan <span>*</span><input id="linked-account" name="linked_account" maxlength="100" required placeholder="Contoh: verlyplayer08"></label></div></section>
+          <section class="form-panel"><div class="step-heading"><span class="step-number">02</span><div><h3>Paket yang dipilih</h3><p>Klik salah satu kartu paket di atas untuk mengisinya.</p></div></div><div class="selected-product" id="selected-product"><span class="empty-icon">◇</span><div><strong>Belum memilih paket</strong><p>Silakan pilih paket di katalog.</p></div><a href="#paket" class="mini-link">Pilih paket →</a></div></section>
+          <section class="form-panel"><div class="step-heading"><span class="step-number">03</span><div><h3>Jumlah pembelian</h3><p>Maksimal 10 paket per pesanan.</p></div></div><div class="quantity-control"><button type="button" id="qty-minus" aria-label="Kurangi jumlah">−</button><output id="qty-value" aria-live="polite">1</output><button type="button" id="qty-plus" aria-label="Tambah jumlah">+</button></div></section>
+          <section class="form-panel"><div class="step-heading"><span class="step-number">04</span><div><h3>Metode pembayaran</h3><p>Metode dan instruksi pembayaran akan dikonfirmasi oleh admin.</p></div></div><div class="payment-note">💬 <span><strong>Konfirmasi via WhatsApp</strong><small>Belum ada metode pembayaran otomatis. Jangan transfer sebelum menerima instruksi dari admin.</small></span></div></section>
+          <section class="form-panel"><div class="step-heading"><span class="step-number">05</span><div><h3>Detail kontak</h3><p>Kami gunakan untuk memproses dan menghubungi kamu mengenai pesanan.</p></div></div><div class="form-fields two"><label>Nomor WhatsApp <span>*</span><input id="customer-phone" name="phone" inputmode="tel" autocomplete="tel" maxlength="18" required placeholder="08xxxxxxxxxx"></label><label>Email (opsional)<input id="customer-email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="nama@email.com"></label></div><label class="consent"><input id="consent" type="checkbox" required><span>Saya setuju data yang saya isi digunakan untuk memproses pesanan sesuai <a href="/privacy.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.</span></label><label class="honeypot" aria-hidden="true">Jangan isi<input id="website-field" type="text" tabindex="-1" autocomplete="off"></label></section>
+          <div class="submit-wrap"><p id="form-error" class="form-error" role="alert" hidden></p><button id="submit-order" type="submit" class="btn primary big">Pesan Sekarang via WhatsApp ↗</button><p class="fineprint">Data disimpan ke database terlebih dahulu. Chat WhatsApp terbuka setelah penyimpanan berhasil.</p></div>
+        </form>
+        <aside class="order-sidebar" aria-label="Ringkasan pesanan"><div class="summary-card"><div class="summary-head">✦ ORDER SUMMARY <span>VERLY STORE</span></div><div id="summary-content" class="summary-content"><p>Belum ada produk dipilih.</p></div><div class="summary-row total"><span>Total</span><strong id="summary-total">Rp0</strong></div><p class="summary-note">Belum termasuk biaya tambahan jika ada, akan dikonfirmasi admin. Bukti transfer dikirim lewat WhatsApp.</p></div><div class="side-help"><strong>Butuh bantuan?</strong><p>Chat admin langsung untuk pertanyaan produk dan pembayaran.</p><a target="_blank" rel="noopener noreferrer" href="https://wa.me/6288200240778">Hubungi admin ↗</a></div></aside>
+      </div>
+    </section>
+
+    <section class="tracker container" id="lacak" aria-labelledby="tracker-title"><div class="tracker-card"><div><p class="eyebrow">CEK TRANSAKSI</p><h2 id="tracker-title">Lacak status <span>pesananmu.</span></h2><p>Gunakan kode pesanan dan nomor WhatsApp yang dipakai saat checkout.</p></div><form id="track-form"><label>Kode pesanan<input id="track-code" required maxlength="40" placeholder="VG-20261110-XXXXXXXXXX"></label><label>Nomor WhatsApp<input id="track-phone" required inputmode="tel" maxlength="18" placeholder="08xxxxxxxxxx"></label><button class="btn primary" type="submit">Cek Status</button></form><div id="track-result" role="status" aria-live="polite"></div></div></section>
+    <section class="how container" id="cara-order"><div class="section-heading"><div><p class="eyebrow">HOW IT WORKS</p><h2>CARA <span>ORDER</span></h2></div></div><div class="how-grid"><div><b>01</b><h3>Pilih paket</h3><p>Lihat katalog Coin, Diamond, VIP, atau Premium.</p></div><div><b>02</b><h3>Isi formulir</h3><p>Masukkan ID Mabar, data akun, dan nomor WhatsApp.</p></div><div><b>03</b><h3>Chat admin</h3><p>Data order tercatat, lalu kirim pesanan dan bukti pembayaran lewat WhatsApp.</p></div></div></section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><div><strong>VERLY <span>GAMEDEV</span> STORE</strong><p>Coin • Diamond • VIP • Premium</p></div><div><a href="/privacy.html">Privasi</a><a href="#lacak">Cek Transaksi</a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/6288200240778">WhatsApp</a></div><small>© 2026 VERLY GAMEDEV STORE</small></div></footer>
+  <div class="mobile-checkout"><span id="mobile-subtotal">Pilih paket untuk mulai</span><a href="#order" class="btn primary">Lanjut Order →</a></div>
+</body>
+</html>
