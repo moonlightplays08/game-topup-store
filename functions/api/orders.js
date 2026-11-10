@@ -18,7 +18,8 @@ export async function onRequestPost({request,env}) {
   if(!validText(data.name,80)||!validText(data.mabar_id,50)||!validText(data.linked_account,100)||!phone||!Number.isInteger(productId)||!Number.isInteger(qty)||qty<1||qty>10||data.consent!==true) return json({error:'Mohon lengkapi data yang wajib dengan benar.'},400);
   const email=String(data.email||'').trim();
   if(email && (email.length>120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)))return json({error:'Format email tidak sesuai.'},400);
-  if(data.payment_method!=='konfirmasi_wa') return json({error:'Metode pembayaran tidak dikenali.'},400);
+  const allowedPayments = ['qris','dana','bca'];
+  if (!allowedPayments.includes(data.payment_method)) return json({error:'Pilih metode pembayaran yang valid (QRIS, DANA, atau m-Banking BCA).'},400);
   try {
     const p=await env.DB.prepare('SELECT id,name,amount_text,price_idr,bonus_text,bonus_until FROM products WHERE id=? AND is_active=1').bind(productId).first();
     if(!p) return json({error:'Paket tidak ditemukan atau sudah tidak aktif.'},404);
@@ -27,9 +28,9 @@ export async function onRequestPost({request,env}) {
     const orderCode=`VG-${now.replaceAll('-','')}-${crypto.randomUUID().replaceAll('-','').slice(0,12).toUpperCase()}`;
     const statements=[
       env.DB.prepare('INSERT INTO customers(phone,name,email) VALUES (?,?,?) ON CONFLICT(phone) DO UPDATE SET name=excluded.name,email=COALESCE(excluded.email,customers.email),updated_at=datetime(\'now\')').bind(phone,data.name.trim(),email||null),
-      env.DB.prepare('INSERT INTO orders(order_code,customer_id,mabar_id,linked_account,product_id,product_name_snapshot,amount_text_snapshot,bonus_text_snapshot,unit_price_idr,qty,total_idr,payment_method) VALUES (?,(SELECT id FROM customers WHERE phone=?),?,?,?,?,?,?,?,?,?,?)').bind(orderCode,phone,data.mabar_id.trim(),data.linked_account.trim(),p.id,p.name,p.amount_text,bonus,p.price_idr,qty,p.price_idr*qty,'konfirmasi_wa')
+      env.DB.prepare('INSERT INTO orders(order_code,customer_id,mabar_id,linked_account,product_id,product_name_snapshot,amount_text_snapshot,bonus_text_snapshot,unit_price_idr,qty,total_idr,payment_method) VALUES (?,(SELECT id FROM customers WHERE phone=?),?,?,?,?,?,?,?,?,?,?)').bind(orderCode,phone,data.mabar_id.trim(),data.linked_account.trim(),p.id,p.name,p.amount_text,bonus,p.price_idr,qty,p.price_idr*qty,data.payment_method)
     ];
     await env.DB.batch(statements);
-    return json({ok:true,order_code:orderCode,product_name:p.name,amount_text:p.amount_text,bonus_text:bonus,total_idr:p.price_idr*qty},201);
+    return json({ok:true,order_code:orderCode,product_name:p.name,amount_text:p.amount_text,bonus_text:bonus,total_idr:p.price_idr*qty,payment_method:data.payment_method},201);
   } catch(e) {console.error('Failed to create order', e?.message);return json({error:'Pesanan belum berhasil tersimpan. Coba lagi atau hubungi admin.'},500);}
 }

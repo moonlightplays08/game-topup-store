@@ -28,6 +28,8 @@ let category = 'coin';
 let chosen = null;
 let qty = 1;
 const iconFor = p => p.category === 'coin' ? '🪙' : p.category === 'diamond' ? '💎' : '👑';
+const PAYMENT_LABELS = Object.freeze({qris:'QRIS',dana:'DANA',bca:'m-Banking BCA'});
+const selectedPayment = () => document.querySelector('input[name="payment_method"]:checked')?.value || null;
 function renderProducts() {
   const query = $('search').value.trim().toLocaleLowerCase('id');
   const visible = products.filter(p => (category === 'all' || p.category === category) && `${p.name} ${p.amount_text} ${p.bonus_text||''}`.toLocaleLowerCase('id').includes(query));
@@ -52,7 +54,8 @@ function updateSummary() {
   }
   const bonus = bonusActive(chosen) ? `🎁 Bonus November: ${chosen.bonus_text}` : 'Tidak ada bonus bulanan aktif';
   $('selected-product').innerHTML = `<span class="empty-icon">${iconFor(chosen)}</span><div><strong>${escapeHtml(chosen.name)}</strong><p>${escapeHtml(chosen.amount_text)} — ${rupiah(chosen.price_idr)}</p></div><a href="#paket" class="mini-link">Ganti →</a>`;
-  $('summary-content').innerHTML = `<strong>${escapeHtml(chosen.name)}</strong><p>${escapeHtml(chosen.amount_text)}</p><p>${escapeHtml(bonus)}</p><p>Jumlah: ${qty} × ${rupiah(chosen.price_idr)}</p>`;
+  const paymentLabel = PAYMENT_LABELS[selectedPayment()] || 'Belum dipilih';
+  $('summary-content').innerHTML = `<strong>${escapeHtml(chosen.name)}</strong><p>${escapeHtml(chosen.amount_text)}</p><p>${escapeHtml(bonus)}</p><p>Jumlah: ${qty} × ${rupiah(chosen.price_idr)}</p><p>Pembayaran: ${escapeHtml(paymentLabel)}</p>`;
   const total = chosen.price_idr * qty;
   $('summary-total').textContent = rupiah(total);
   $('mobile-subtotal').textContent = rupiah(total);
@@ -72,7 +75,9 @@ async function submitOrder(event) {
   if (!phone) return errorForm('Nomor WhatsApp tidak valid. Gunakan awalan 08 atau 628.');
   if (!apiReady) return errorForm('Ini masih mode preview. Hubungkan Cloudflare Pages dan database D1 agar order bisa tersimpan. Belum ada data yang dikirim.');
   const button = $('submit-order'); button.disabled = true; button.textContent = 'Menyimpan pesanan...';
-  const payload = {product_id:chosen.id,qty,name:$('customer-name').value.trim(),mabar_id:$('mabar-id').value.trim(),linked_account:$('linked-account').value.trim(),phone,email:$('customer-email').value.trim(),payment_method:'konfirmasi_wa',consent:$('consent').checked,website:$('website-field').value};
+  const method = selectedPayment();
+  if (!PAYMENT_LABELS[method]) return errorForm('Silakan pilih metode pembayaran: QRIS, DANA, atau m-Banking BCA.');
+  const payload = {product_id:chosen.id,qty,name:$('customer-name').value.trim(),mabar_id:$('mabar-id').value.trim(),linked_account:$('linked-account').value.trim(),phone,email:$('customer-email').value.trim(),payment_method:method,consent:$('consent').checked,website:$('website-field').value};
   try {
     const res = await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const data = await res.json();
@@ -84,8 +89,8 @@ async function submitOrder(event) {
       `Orderan: ${data.product_name} (${data.amount_text})`,`Jumlah: ${qty}`,
       `Bonus: ${data.bonus_text || 'Tidak ada bonus aktif'}`,
       `Harga total: ${rupiah(data.total_idr)}`,
-      'Pembayaran via: Konfirmasi dengan admin',
-      '', 'Mohon instruksi pembayaran ya. Bukti transfer akan saya kirim di chat ini.'
+      `Pembayaran via: ${PAYMENT_LABELS[data.payment_method] || PAYMENT_LABELS[method]}`,
+      '', 'Mohon detail pembayaran resmi sesuai metode yang saya pilih. Bukti transfer akan saya kirim di chat ini.'
     ];
     if (payload.email) lines.splice(7,0,`Email: ${payload.email}`);
     window.location.assign('https://wa.me/62882002402778?text='+encodeURIComponent(lines.join('\n')));
@@ -110,6 +115,7 @@ async function init() {
   $('search').addEventListener('input',()=>{ if($('search').value.trim()) setCategory('all'); else renderProducts(); });
   $('qty-minus').addEventListener('click',()=>{qty=Math.max(1,qty-1);updateSummary();});
   $('qty-plus').addEventListener('click',()=>{qty=Math.min(10,qty+1);updateSummary();});
+  document.querySelectorAll('input[name="payment_method"]').forEach(input=>input.addEventListener('change',updateSummary));
   $('checkout-form').addEventListener('submit',submitOrder);
   $('track-form').addEventListener('submit',trackOrder);
   $('promo-pill').hidden = !(todayJakarta() >= '2026-11-01' && todayJakarta() <= '2026-11-30');
