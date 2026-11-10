@@ -64,5 +64,8 @@
  // Ditampilkan sekali per tab/session. Jangan tampilkan bonus November di bulan lain.
  let alreadySeen=false;
  try{alreadySeen=sessionStorage.getItem(SEEN_KEY)==='1'}catch(_){}
- if(!alreadySeen && Date.now()<validUntil) open();
+ 
+if (!alreadySeen && Date.now() < validUntil) {
+  setTimeout(open, 0);
+}
 })();
