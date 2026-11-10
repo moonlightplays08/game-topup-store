@@ -12,7 +12,9 @@
  const skip=document.getElementById('verly-promo-skip');
  const buy=document.getElementById('verly-vip-buy');
  let lastFocus=null;
- const SEEN_KEY='verly_promo_vip_november_2026_seen';
+ const NEXT_AT_KEY='verly_promo_vip_november_2026_next_at';
+ const REPEAT_AFTER_MS=5 * 60 * 1000; // 5 menit. Ubah angka 5 jika ingin durasi lain.
+ let repeatTimer=null;
  // Gambar promo dan item spesifik November 2026, jangan tampilkan lagi setelah 30 November WIB.
  const validUntil=Date.parse('2026-12-01T00:00:00+07:00');
  function open(){
@@ -28,10 +30,19 @@
    count.textContent='2 / 2';
    close.focus({preventScroll:true});
  }
+ function scheduleRepeat(nextAt=Date.now()+REPEAT_AFTER_MS){
+   if(Date.now()>=validUntil) return;
+   try{sessionStorage.setItem(NEXT_AT_KEY,String(nextAt));}catch(_){}
+   if(repeatTimer!==null) clearTimeout(repeatTimer);
+   repeatTimer=setTimeout(()=>{
+     repeatTimer=null;
+     if(Date.now()<validUntil && overlay.hidden) open();
+   },Math.max(0,nextAt-Date.now()));
+ }
  function dismiss(){
    overlay.hidden=true;overlay.setAttribute('aria-hidden','true');
    document.body.classList.remove('verly-promo-open');
-   try{sessionStorage.setItem(SEEN_KEY,'1')}catch(_){}
+   scheduleRepeat(); // Popup muncul lagi 5 menit setelah ditutup
    if(lastFocus?.focus) lastFocus.focus({preventScroll:true});
  }
  next.addEventListener('click',showSecond);
@@ -61,11 +72,13 @@
      if(!event.shiftKey && idx===active.length-1){event.preventDefault();active[0]?.focus();}
    }
  });
- // Ditampilkan sekali per tab/session. Jangan tampilkan bonus November di bulan lain.
- let alreadySeen=false;
- try{alreadySeen=sessionStorage.getItem(SEEN_KEY)==='1'}catch(_){}
- 
-if (!alreadySeen && Date.now() < validUntil) {
-  setTimeout(open, 0);
-}
+ // Saat masuk pertama kali tampilkan popup. Setelah ditutup, ulangi setiap 5 menit.
+ // Penyimpanan di sessionStorage mempertahankan waktu saat tab di-refresh.
+ // Jangan tampilkan promo November di bulan lain.
+ if(Date.now()<validUntil){
+   let nextAt=0;
+   try{nextAt=Number(sessionStorage.getItem(NEXT_AT_KEY))||0;}catch(_){}
+   if(nextAt>Date.now()) scheduleRepeat(nextAt);
+   else open();
+ }
 })();
