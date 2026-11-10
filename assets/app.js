@@ -88,7 +88,7 @@ async function submitOrder(event) {
       '', 'Mohon instruksi pembayaran ya. Bukti transfer akan saya kirim di chat ini.'
     ];
     if (payload.email) lines.splice(7,0,`Email: ${payload.email}`);
-    window.location.assign('https://wa.me/6288200240778?text='+encodeURIComponent(lines.join('\n')));
+    window.location.assign('https://wa.me/62882002402778?text='+encodeURIComponent(lines.join('\n')));
   } catch (e) { errorForm(e.message || 'Ada kendala. Coba lagi. Jangan mengirim pesanan ganda sebelum mengecek status.'); }
   finally { button.disabled = false; button.textContent = 'Pesan Sekarang via WhatsApp ↗'; }
 }
